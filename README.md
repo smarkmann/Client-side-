@@ -4,19 +4,22 @@ Dette repository indeholder alt I skal bruge, for at komme i gang med Javascript
 ## Intro
 Dette kursus bliver et crash course i Javascript - dvs. en hurtig gennemgang af det _mest vigtige_ elementer i Javascript, og dermed ikke en udtømmende beskrivelse af alle sprogets facetter. Jeg vil lægge vægt på at sammenligne Javascript med hvad I ved fra jeres allerede eksisterende Java-viden.
 
-## Jeg forventer
+## Forudsætninger for dagen
 At følgende programmer er installeret på jeres maskiner:
 
 - Installeret Webstorm (https://www.jetbrains.com/webstorm/download/).
 - Installeret Advanced Rest Client (Chrome app) og dermed Google Chrome
 
+##### Se disse videoer:
+https://www.youtube.com/playlist?list=PLoYCgNOIyGACTDHuZtn0qoBdpzV9c327V (1 - 4 her er nok)
+https://www.youtube.com/playlist?list=PLoYCgNOIyGABdI2V8I_SWo22tFpgh2s6_ (1 - 8)
+
 ## Outline af dagen
 
 - Intro
-  - Tools gennemgang
   - Server gennemgang 
   - Klient gennemgang
-- Javascript fundamentals
+- Javascript fundamentals (hurtig gennemgang - det anbefales at I får det fundamentale på plads ved at se de linkede videoer)
   - var keyword
   - Arrays og lister
   - Scopes
@@ -30,9 +33,9 @@ At følgende programmer er installeret på jeres maskiner:
   - Intro til jQuery
 - Implementering af udvalgte use-cases
   - Eksempler
-- I koder, jeg hjælper
+- I koder, vi hjælper
 - Opsamling
 
 ## Misc
 Server connection:
-`https://momentify.eu.ngrok.io/api/`
+TBA
