@@ -12,6 +12,7 @@ At følgende programmer er installeret på jeres maskiner:
 
 ##### Se disse videoer:
 [Javascript Fundamentals](https://www.youtube.com/playlist?list=PLoYCgNOIyGACTDHuZtn0qoBdpzV9c327V) (1 - 4 her er nok)
+
 [jQuery Tutorial for Beginners](https://www.youtube.com/playlist?list=PLoYCgNOIyGABdI2V8I_SWo22tFpgh2s6_) (1 - 8 her er nok)
 
 ## Outline af dagen
