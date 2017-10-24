@@ -19,8 +19,8 @@ At følgende programmer er installeret på jeres maskiner:
 - Intro
   - Server gennemgang 
   - Klient gennemgang
-- Javascript fundamentals (hurtig gennemgang - det anbefales at I får det fundamentale på plads ved at se de linkede videoer)
-  - var keyword
+- Javascript fundamentals _(OBS: dette er en hurtig gennemgang - det anbefales at I får det fundamentale på plads ved at se de linkede videoer)_
+  - var, let, const keywords
   - Arrays og lister
   - Scopes
   - functions og callbacks
