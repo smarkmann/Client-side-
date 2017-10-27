@@ -10,7 +10,7 @@ const SDK = {
     }
 
     $.ajax({
-      url: this.serverURL + options.url,
+      url: SDK.serverURL + options.url,
       method: options.method,
       headers: headers,
       contentType: "application/json",
@@ -27,7 +27,7 @@ const SDK = {
   },
   Book: {
     findAll: (cb) => {
-      this.request({
+      SDK.request({
         method: "GET",
         url: "/books",
         headers: {
@@ -38,7 +38,7 @@ const SDK = {
       }, cb);
     },
     create: (data, cb) => {
-      this.request({
+      SDK.request({
         method: "POST",
         url: "/books",
         data: data,
@@ -48,23 +48,23 @@ const SDK = {
   },
   Author: {
     findAll: (cb) => {
-      this.request({method: "GET", url: "/authors"}, cb);
+      SDK.request({method: "GET", url: "/authors"}, cb);
     }
   },
   User: {
     finAll: (cb) => {
-      this.request({method: "GET", url: "/staffs"}, cb);
+      SDK.request({method: "GET", url: "/staffs"}, cb);
     },
     current: () => {
       return this.Storage.load("user");
     },
     logOut: () => {
-      this.Storage.remove("tokenId");
-      this.Storage.remove("userId");
-      this.Storage.remove("user");
+      SDK.Storage.remove("tokenId");
+      SDK.Storage.remove("userId");
+      SDK.Storage.remove("user");
     },
     login: (username, password, cb) => {
-      this.request({
+      SDK.request({
         data: {
           username: username,
           password: password
