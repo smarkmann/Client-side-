@@ -1,6 +1,7 @@
 $(document).ready(() => {
 
-  const bookList = $("#book-list");
+  const $bookList = $("#book-list");
+  const $purchaseModel = $('#purchase-modal');
 
   SDK.Book.findAll((err, books) => {
     if (err) throw err;
@@ -33,16 +34,22 @@ $(document).ready(() => {
                             <p>Kr. <span class="price-amount">${book.price}</span></p>
                         </div>
                         <div class="col-lg-8 text-right">
-                            <button class="btn btn-success ">Køb</button>
+                            <button class="btn btn-success purchase-button" data-book-id="${book.id}">Køb</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>`;
 
-      bookList.append(bookHtml);
+      $bookList.append(bookHtml);
     });
-  });
 
+    $(".purchase-button").click(function () {
+      $purchaseModel.modal('toggle');
+      const bookId = $(this).data("book-id");
+      console.log(bookId);
+    });
+
+  });
 
 });
