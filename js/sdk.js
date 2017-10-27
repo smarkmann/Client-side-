@@ -49,7 +49,6 @@ const SDK = {
         });
       }
 
-      SDK.Storage.remove("basket");
       SDK.Storage.persist("basket", basket);
     },
     findAll: (cb) => {
@@ -78,7 +77,7 @@ const SDK = {
     }
   },
   User: {
-    finAll: (cb) => {
+    findAll: (cb) => {
       SDK.request({method: "GET", url: "/staffs"}, cb);
     },
     current: () => {
