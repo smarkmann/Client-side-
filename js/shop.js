@@ -54,21 +54,39 @@ $(document).ready(() => {
 
   });
 
-  $purchaseModel.on('shown.bs.modal', function () {
+  //When modal opens
+  $purchaseModel.on('shown.bs.modal',  () => {
     const basket = SDK.Storage.load("basket");
-    console.log(basket);
-   /* basket.forEach(book => {
+    let total = 0;
+
+    basket.forEach(entry => {
+      let subtotal = entry.book.price * entry.count;
+      total += subtotal;
       $modalTbody.append(`
         <tr>
             <td>
-                <img src="${book.imgUrl}" height="60"/>
+                <img src="${entry.book.imgUrl}" height="60"/>
             </td>
-            <td>${book.title}</td>
-            <td>${book.price}</td>
+            <td>${entry.book.title}</td>
+            <td>${entry.count}</td>
+            <td>kr. ${entry.book.price}</td>
+            <td>kr. ${subtotal}</td>
         </tr>
       `);
-    });*/
+    });
 
-  })
+    $modalTbody.append(`
+      <tr>
+        <td colspan="3"></td>
+        <td><b>Total</b></td>
+        <td>kr. ${total}</td>
+      </tr>
+    `);
+  });
+
+  //When modal closes
+  $purchaseModel.on("hidden.bs.modal", () => {
+    $modalTbody.html("");
+  });
 
 });
