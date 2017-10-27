@@ -2,3 +2,18 @@ nav {
     margin-bottom: 25px;
     margin-top: 20px;
 }
+
+.book-container .panel-body {
+    min-height: 225px;
+}
+.book-container img {
+    height: 120px;
+}
+.book-container .price-label {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.book-container .price-label p {
+    margin: 4px 0 0 0;
+}
