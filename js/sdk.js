@@ -82,7 +82,7 @@ const SDK = {
       SDK.request({method: "GET", url: "/staffs"}, cb);
     },
     current: () => {
-      return this.Storage.load("user");
+      return SDK.Storage.load("user");
     },
     logOut: () => {
       SDK.Storage.remove("tokenId");

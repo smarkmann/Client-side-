@@ -1,8 +1,8 @@
 $(document).ready(() => {
 
   const $bookList = $("#book-list");
-  const $purchaseModel = $('#purchase-modal');
-  const $modalTbody = $("#basket-tbody");
+  const $purchaseModal = $('#purchase-modal');
+  const $modalBody = $(".modal-body");
 
   SDK.Book.findAll((err, books) => {
     if (err) throw err;
@@ -46,23 +46,59 @@ $(document).ready(() => {
     });
 
     $(".purchase-button").click(function () {
-      $purchaseModel.modal('toggle');
-      const bookId = $(this).data("book-id");
-      const book = books.find(b => b.id === bookId);
-      SDK.Book.addToBasket(book);
+      $purchaseModal.modal('toggle');
+      if (SDK.User.current()) {
+        const bookId = $(this).data("book-id");
+        const book = books.find(b => b.id === bookId);
+        SDK.Book.addToBasket(book);
+      }
     });
 
   });
 
   //When modal opens
-  $purchaseModel.on('shown.bs.modal',  () => {
-    const basket = SDK.Storage.load("basket");
-    let total = 0;
+  $purchaseModal.on('shown.bs.modal', () => {
 
-    basket.forEach(entry => {
-      let subtotal = entry.book.price * entry.count;
-      total += subtotal;
-      $modalTbody.append(`
+    if (!SDK.User.current()) {
+      $purchaseModal.find(".modal-title").text("Log in to continue");
+      $purchaseModal.find(".modal-body").append(`
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"/>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        `);
+    } else {
+
+      const basket = SDK.Storage.load("basket");
+      let total = 0;
+
+      $modalBody.append(`
+      <table class="table">
+          <thead>
+          <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+          </tr>
+          </thead>
+          <tbody id="basket-tbody">
+
+          </tbody>
+      </table>`);
+
+      basket.forEach(entry => {
+        let subtotal = entry.book.price * entry.count;
+        total += subtotal;
+        $modalBody.find("#basket-tbody").append(`
         <tr>
             <td>
                 <img src="${entry.book.imgUrl}" height="60"/>
@@ -73,20 +109,21 @@ $(document).ready(() => {
             <td>kr. ${subtotal}</td>
         </tr>
       `);
-    });
+      });
 
-    $modalTbody.append(`
+      $modalBody.find("#basket-tbody").append(`
       <tr>
         <td colspan="3"></td>
         <td><b>Total</b></td>
         <td>kr. ${total}</td>
       </tr>
     `);
+    }
   });
 
   //When modal closes
-  $purchaseModel.on("hidden.bs.modal", () => {
-    $modalTbody.html("");
+  $purchaseModal.on("hidden.bs.modal", () => {
+    $modalBody.html("");
   });
 
 });
