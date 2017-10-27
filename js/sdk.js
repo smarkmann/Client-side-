@@ -26,6 +26,15 @@ const SDK = {
 
   },
   Book: {
+    addToBasket: (book) => {
+      let basket = SDK.Storage.load("basket");
+      if(!basket){
+        return SDK.Storage.persist("basket", [book]);
+      }
+      basket.push(book);
+      SDK.Storage.remove("basket");
+      SDK.Storage.persist("basket", basket);
+    },
     findAll: (cb) => {
       SDK.request({
         method: "GET",
@@ -88,10 +97,10 @@ const SDK = {
   Storage: {
     prefix: "BookStoreSDK",
     persist: (key, value) => {
-      window.localStorage.setItem(this.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
+      window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
     },
     load: (key) => {
-      const val = window.localStorage.getItem(this.prefix + key);
+      const val = window.localStorage.getItem(SDK.Storage.prefix + key);
       try {
         return JSON.parse(val);
       }
@@ -100,7 +109,7 @@ const SDK = {
       }
     },
     remove: (key) => {
-      window.localStorage.removeItem(this.prefix + key);
+      window.localStorage.removeItem(SDK.Storage.prefix + key);
     }
   }
 };

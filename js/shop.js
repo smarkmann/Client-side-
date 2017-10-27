@@ -2,6 +2,7 @@ $(document).ready(() => {
 
   const $bookList = $("#book-list");
   const $purchaseModel = $('#purchase-modal');
+  const $modalTbody = $("#basket-tbody");
 
   SDK.Book.findAll((err, books) => {
     if (err) throw err;
@@ -34,7 +35,7 @@ $(document).ready(() => {
                             <p>Kr. <span class="price-amount">${book.price}</span></p>
                         </div>
                         <div class="col-lg-8 text-right">
-                            <button class="btn btn-success purchase-button" data-book-id="${book.id}">Køb</button>
+                            <button class="btn btn-success purchase-button" data-book-id="${book.id}">Add to basket</button>
                         </div>
                     </div>
                 </div>
@@ -47,9 +48,27 @@ $(document).ready(() => {
     $(".purchase-button").click(function () {
       $purchaseModel.modal('toggle');
       const bookId = $(this).data("book-id");
-      console.log(bookId);
+      const book = books.find(b => b.id === bookId);
+      SDK.Book.addToBasket(book);
+
     });
 
   });
+
+  $purchaseModel.on('shown.bs.modal', function () {
+    const basket = SDK.Storage.load("basket");
+    basket.forEach(book => {
+      $modalTbody.append(`
+        <tr>
+            <td>
+                <img src="${book.imgUrl}" height="60"/>
+            </td>
+            <td>${book.title}</td>
+            <td>${book.price}</td>
+        </tr>
+      `);
+    });
+
+  })
 
 });
