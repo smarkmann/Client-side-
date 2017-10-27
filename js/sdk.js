@@ -28,10 +28,27 @@ const SDK = {
   Book: {
     addToBasket: (book) => {
       let basket = SDK.Storage.load("basket");
-      if(!basket){
-        return SDK.Storage.persist("basket", [book]);
+
+      //Has anything been added to the basket before?
+      if (!basket) {
+        return SDK.Storage.persist("basket", [{
+          count: 1,
+          book: book
+        }]);
       }
-      basket.push(book);
+
+      //Does the book already exist?
+      let foundBook = basket.find(b => b.book.id === book.id);
+      if (foundBook) {
+        let i = basket.indexOf(foundBook);
+        basket[i].count++;
+      } else {
+        basket.push({
+          count: 1,
+          book: book
+        });
+      }
+
       SDK.Storage.remove("basket");
       SDK.Storage.persist("basket", basket);
     },

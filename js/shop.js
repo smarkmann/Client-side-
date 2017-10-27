@@ -50,14 +50,14 @@ $(document).ready(() => {
       const bookId = $(this).data("book-id");
       const book = books.find(b => b.id === bookId);
       SDK.Book.addToBasket(book);
-
     });
 
   });
 
   $purchaseModel.on('shown.bs.modal', function () {
     const basket = SDK.Storage.load("basket");
-    basket.forEach(book => {
+    console.log(basket);
+   /* basket.forEach(book => {
       $modalTbody.append(`
         <tr>
             <td>
@@ -67,7 +67,7 @@ $(document).ready(() => {
             <td>${book.price}</td>
         </tr>
       `);
-    });
+    });*/
 
   })
 
