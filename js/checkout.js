@@ -1,5 +1,7 @@
 $(document).ready(() => {
 
+  SDK.User.loadNav();
+
   const $modalTbody = $("#basket-tbody");
   const basket = SDK.Storage.load("basket");
   let total = 0;

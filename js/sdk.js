@@ -113,12 +113,13 @@ const SDK = {
       $("#nav-container").load("nav.html", () => {
         const currentUser = SDK.User.current();
         if (currentUser) {
-          $(".authentication-link").html(`
-            <a href="currentUser.html">Hello, ${currentUser.firstName}</a>
+          $(".navbar-right").html(`
+            <li><a href="#">Hello, ${currentUser.firstName}</a></li>
+            <li><a href="#">Logout</a></li>
           `);
         } else {
-          $(".authentication-link").html(`
-            <a href="login.html">Log-in <span class="sr-only">(current)</span></a>
+          $(".navbar-right").html(`
+            <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
           `);
         }
         cb && cb();
