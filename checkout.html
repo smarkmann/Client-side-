@@ -15,33 +15,41 @@
 
     <div class="row" id="nav-container"></div>
 
-    <div class="row">
-        <div class="col-lg-12">
+    <div id="checkout-table-container">
+        <div class="row">
+            <div class="col-lg-12">
 
-            <div class="page-header">
-                <h1>In your basket</h1>
+                <div class="page-header">
+                    <h1>In your basket</h1>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="basket-tbody">
+
+                    </tbody>
+                </table>
+
             </div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody id="basket-tbody">
+        </div>
 
-                </tbody>
-            </table>
-
+        <div class="row">
+            <div class="col-lg-offset-8 text-right" id="checkout-actions"></div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-offset-8 text-right">
-        <button class="btn btn-success btn-lg">Checkout</button>
+    <div id="nothing-in-basket-container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>No items found in basket :(</h2>
+            </div>
         </div>
     </div>
 
