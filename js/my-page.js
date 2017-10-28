@@ -26,7 +26,6 @@ $(document).ready(() => {
   SDK.Order.findMine((err, orders) => {
     if(err) throw err;
     orders.forEach(order => {
-      console.log(parseOrderItems(order.orderItems));
       $basketTbody.append(`
         <tr>
             <td>${order.id}</td>
@@ -45,7 +44,6 @@ $(document).ready(() => {
 
   function sumTotal(items){
     let total = 0;
-    console.log(items);
     items.forEach(item => {
       total += item.count * item.bookInfo.price
     });
