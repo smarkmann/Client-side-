@@ -108,6 +108,21 @@ const SDK = {
         cb(null, data);
 
       });
+    },
+    loadNav: (cb) => {
+      $("#nav-container").load("nav.html", () => {
+        const currentUser = SDK.User.current();
+        if (currentUser) {
+          $(".authentication-link").html(`
+            <a href="currentUser.html">Hello, ${currentUser.firstName}</a>
+          `);
+        } else {
+          $(".authentication-link").html(`
+            <a href="login.html">Log-in <span class="sr-only">(current)</span></a>
+          `);
+        }
+        cb && cb();
+      });
     }
   },
   Storage: {

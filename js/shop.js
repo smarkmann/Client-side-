@@ -1,5 +1,7 @@
 $(document).ready(() => {
 
+  SDK.User.loadNav();
+
   const $bookList = $("#book-list");
   const $purchaseModal = $('#purchase-modal');
   const $modalTbody = $("#basket-tbody");
