@@ -2,25 +2,28 @@ $(document).ready(() => {
 
   SDK.User.loadNav();
 
-  const currentUser = SDK.User.current();
+
   const $modalTbody = $("#basket-tbody");
   const $checkoutActions = $("#checkout-actions");
   const $nothingInBasketContainer = $("#nothing-in-basket-container");
-  const basket = SDK.Storage.load("basket") || [];
-  let total = 0;
 
-  $nothingInBasketContainer.show();
+  function loadBasket() {
+    const currentUser = SDK.User.current();
+    const basket = SDK.Storage.load("basket") || [];
+    let total = 0;
 
-  if(!basket.length){
-    $("#checkout-table-container").hide();
-  } else {
-    $nothingInBasketContainer.hide();
-  }
+    $nothingInBasketContainer.show();
 
-  basket.forEach(entry => {
-    let subtotal = entry.book.price * entry.count;
-    total += subtotal;
-    $modalTbody.append(`
+    if (!basket.length) {
+      $("#checkout-table-container").hide();
+    } else {
+      $nothingInBasketContainer.hide();
+    }
+
+    basket.forEach(entry => {
+      let subtotal = entry.book.price * entry.count;
+      total += subtotal;
+      $modalTbody.append(`
         <tr>
             <td>
                 <img src="${entry.book.imgUrl}" height="120"/>
@@ -31,9 +34,9 @@ $(document).ready(() => {
             <td>kr. ${subtotal}</td>
         </tr>
       `);
-  });
+    });
 
-  $modalTbody.append(`
+    $modalTbody.append(`
       <tr>
         <td colspan="3"></td>
         <td><b>Total</b></td>
@@ -41,18 +44,25 @@ $(document).ready(() => {
       </tr>
     `);
 
-  if (currentUser) {
-    $checkoutActions.html(`
+    if (currentUser) {
+      $checkoutActions.append(`
       <button class="btn btn-success btn-lg">Checkout</button>
     `);
-  }
-  else {
-    $checkoutActions.html(`
+    }
+    else {
+      $checkoutActions.append(`
       <a href="login.html">
         <button class="btn btn-primary btn-lg">Log in to checkout</button>
       </a>
     `);
+    }
   }
 
+  loadBasket();
+
+  $("#clear-basket-button").click(() => {
+    SDK.Storage.remove("basket");
+    loadBasket();
+  });
 
 });
