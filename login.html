@@ -70,11 +70,12 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="index.html">Hjem</a></li>
-                            <li class="active"><a href="shop.html">Shop <span class="sr-only">(current)</span></a></li>
+                            <li><a href="shop.html">Shop </a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="login.html">Log-in</a></li>
+                            <li class="active"><a href="login.html">Log-in <span class="sr-only">(current)</span></a>
+                            </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -83,12 +84,22 @@
         </div>
     </div>
 
-    <div class="page-header">
-        <h1>Shop</h1>
-    </div>
 
-    <div class="row" id="book-list">
-
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="page-header">
+                <h1>Login</h1>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            </div>
+            <button style="margin-bottom: 40px" class="btn btn-default" id="login-button">Submit</button>
+        </div>
     </div>
 
 

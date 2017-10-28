@@ -88,10 +88,10 @@ const SDK = {
       SDK.Storage.remove("userId");
       SDK.Storage.remove("user");
     },
-    login: (username, password, cb) => {
+    login: (email, password, cb) => {
       SDK.request({
         data: {
-          username: username,
+          email: email,
           password: password
         },
         url: "/users/login?include=user",
