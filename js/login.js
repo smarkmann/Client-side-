@@ -8,7 +8,14 @@ $(document).ready(() => {
     const password = $("#inputPassword").val();
 
     SDK.User.login(email, password, (err, data) => {
-      console.log(err, data);
+      if (err && err.xhr.status === 401) {
+        $(".form-group").addClass("has-error");
+      }
+      else if (err){
+        console.log("BAd stuff happened")
+      } else {
+        window.location.href = "my-page.html";
+      }
     });
 
   });
