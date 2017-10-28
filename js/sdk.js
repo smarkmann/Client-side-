@@ -88,9 +88,8 @@ const SDK = {
     findMine: (cb) => {
       SDK.request({
         method: "GET",
-        url: "/orders",
+        url: "/orders/" + SDK.User.current().id + "/allorders",
         headers: {
-          filter: {"where": {"createdById": SDK.User.current().id}},
           authorization: SDK.Storage.load("tokenId")
         }
       }, cb);
