@@ -67,7 +67,7 @@ $(document).ready(() => {
 
   $("#checkout-button").click(() => {
     const basket = SDK.Storage.load("basket");
-   SDK.Order.create({
+    SDK.Order.create({
       createdById: SDK.User.current().id,
       orderItems: basket.map(orderItem => {
         return {
@@ -77,8 +77,10 @@ $(document).ready(() => {
       })
     }, (err, order) => {
       if (err) throw err;
-      console.log(order);
+      $("#order-alert-container").find(".alert-success").show();
       SDK.Storage.remove("basket");
+      loadBasket();
+      $nothingInBasketContainer.hide();
     });
   });
 
