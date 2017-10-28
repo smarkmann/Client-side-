@@ -1,5 +1,5 @@
 const SDK = {
-  serverURL: "http://localhost:3000/api",
+  serverURL: "http://dis-bookstore.herokuapp.com/api",
   request: (options, cb) => {
 
     let headers = {};
