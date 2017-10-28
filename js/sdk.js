@@ -84,6 +84,16 @@ const SDK = {
         data: data,
         headers: {authorization: SDK.Storage.load("tokenId")}
       }, cb);
+    },
+    findMine: (cb) => {
+      SDK.request({
+        method: "GET",
+        url: "/orders",
+        headers: {
+          filter: {"where": {"createdById": SDK.User.current().id}},
+          authorization: SDK.Storage.load("tokenId")
+        }
+      }, cb);
     }
   },
   User: {
