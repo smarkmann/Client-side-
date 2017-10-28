@@ -46,7 +46,7 @@ $(document).ready(() => {
 
     if (currentUser) {
       $checkoutActions.append(`
-      <button class="btn btn-success btn-lg">Checkout</button>
+      <button class="btn btn-success btn-lg" id="checkout-button">Checkout</button>
     `);
     }
     else {
@@ -63,6 +63,23 @@ $(document).ready(() => {
   $("#clear-basket-button").click(() => {
     SDK.Storage.remove("basket");
     loadBasket();
+  });
+
+  $("#checkout-button").click(() => {
+    const basket = SDK.Storage.load("basket");
+   SDK.Order.create({
+      createdById: SDK.User.current().id,
+      orderItems: basket.map(orderItem => {
+        return {
+          count: orderItem.count,
+          bookId: orderItem.book.id
+        }
+      })
+    }, (err, order) => {
+      if (err) throw err;
+      console.log(order);
+      SDK.Storage.remove("basket");
+    });
   });
 
 });

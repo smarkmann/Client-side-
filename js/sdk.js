@@ -76,6 +76,16 @@ const SDK = {
       SDK.request({method: "GET", url: "/authors"}, cb);
     }
   },
+  Order: {
+    create: (data, cb) => {
+      SDK.request({
+        method: "POST",
+        url: "/orders",
+        data: data,
+        headers: {authorization: SDK.Storage.load("tokenId")}
+      }, cb);
+    }
+  },
   User: {
     findAll: (cb) => {
       SDK.request({method: "GET", url: "/staffs"}, cb);
