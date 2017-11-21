@@ -2,7 +2,10 @@ $(document).ready(() => {
 
   SDK.User.loadNav();
   const currentUser = SDK.User.current();
-  const $basketTbody = $("#basket-tbody");
+  const currentToken = localStorage.getItem("token", data);
+
+
+
 
   $(".page-header").html(`
     <h1>Hi, ${currentUser.firstName} ${currentUser.lastName}</h1>

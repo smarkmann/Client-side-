@@ -5,9 +5,9 @@ $(document).ready(() => {
     SDK.User.loadNav();
     const $bookList = $("#book-list");
 
-    SDK.Book.findAll((err, books)=> {
+    SDK.Course.findAll((err, courses)=> {
 
-        books.forEach((book)=> {
+        courses.forEach((book)=> {
             const bookHtml = `
         <div class="col-lg-4 book-container">
             <div class="panel panel-default">
