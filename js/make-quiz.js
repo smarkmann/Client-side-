@@ -2,23 +2,28 @@ $(document).ready(() => {
 
     SDK.User.loadNav();
 
-  //  $("#login-button").click(() => {
-
-        const quizName = $("#inputQuizname").val();
-        const kode = $("#inputPassword").val();
-
-        SDK.User.login(username, kode, (err, data) => {
-            console.log(err, data);
-            if (err && err.xhr.status === 401) {
-                $(".form-group").addClass("has-error");
-            }
-            else if (err){
-                console.log("Bad stuff happened")
-            } else {
-                window.location.href = "course.html";
-            }
-        });
-
+    $("#addQuestion-button").click(() => {
+        $(".add-quiz").show();
+        console.log("clicked");
+        $("#questionsContainer").append(
+            "<br>Question</label><br>" +
+            "<input type='text' name='question' placeholder=>"+
+            "<br>Answers</br>"+
+            "<input type='text' name='question1' trueQuestion='true' placeholder='korrekt svar'>"+
+            "<input type='text' name='question2'>"+
+            "<input type='text' name='question3'>"+
+            "<input type='text' name='question4'>"
+        )
+    });
+    $("#cancel-button").click(() => {
+        console.log("clicked")
     });
 
 });
+
+
+
+
+
+
+

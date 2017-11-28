@@ -1,7 +1,9 @@
 $(document).ready(() => {
+
     SDK.User.loadNav();
 
     $("#login-button").click(() => {
+        console.log("login clicked");
 
         const username = $("#inputUsername").val();
         const password = $("#inputPassword").val();
@@ -25,11 +27,11 @@ $(document).ready(() => {
                         if (err && err.xhr.status === 401) {
                             window.alert("Wrong username or password");
                         } else {
-                            console.log(data)
-                            if (SDK.User.currentUser().type === 1) {
-                                window.location.href = "course.html";
-                            } else if (SDK.User.currentUser().type === 2) {
+                            let currentUser = JSON.parse(data);
+                            if (currentUser.type === 1) {
                                 window.location.href = "index.html";
+                            } else if (currentUser.type === 2) {
+                                window.location.href = "courses.html";
                             }
                         }
                     });

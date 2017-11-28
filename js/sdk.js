@@ -26,134 +26,235 @@ const SDK = {
 
   },
 
+    User: {
+        signUp: (username, password, callback) => {
+            SDK.request({
+                data: {
+                    username: username,
+                    password: password
+                },
+                url: "/user/signup",
+                method: "POST"
+            }, (err, data) => {
+                if (err) return callback(err);
+                callback(null, data);
+            });
+        },
 
-
-    Course: {
-        findAll: (callback) => {
+        loadCurrentUser: (callback) => {
             SDK.request({
                 method: "GET",
-                url: "/course",
-                headers: {authorization: SDK.Storage.load("tokenId"),
+                url: "/user/myuser",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
                 },
             }, (err, user) => {
                 if (err) return callback(err);
-
+                SDK.Storage.persist("myUser", user);
                 callback(null, user);
             });
+
         },
-        create: (data, callback) => {
-            SDK.request({
-                method: "POST",
-                url: "/course",
-                data: data,
-                headers: {authorization: SDK.Storage.load("tokenId")}
-            }, callback);
-        }
-    },
 
+        currentUser: () => {
+            const loadedUser = SDK.Storage.load("myUser");
+            return loadedUser.currentUser;
+        },
 
-    loadCourses: (callback) => {
+        logOut: () => {
+            SDK.Storage.remove("token");
+            SDK.Storage.remove("userId");
+            SDK.Storage.remove("user");
+            window.location.href = "index.html";
+        },
+
+      login: (username, password, callback) => {
         SDK.request({
+          data: {
+            username: username,
+            password: password
+          },
+          url: "/user/login",
+          method: "POST"
+        }, (err, data) => {
 
-            method: "GET",
-            url: "/user/myuser",
-            headers: {
-                authorization: SDK.Storage.load("tokenId"),
-            },
-        }, (err, user) => {
-            console.log(err, data);
-            if (err) return callback(err);
-            SDK.Storage.persist("myUser", user);
-            callback(null, user);
+          //On login-error
+          if (err) return callback(err);
+
+          //localStorage.setItem("token", data);
+          SDK.Storage.persist("token", data);
+          //SDK.Storage.persist("userId", data.userId);
+          //SDK.Storage.persist("user", data.user);
+
+            callback(null, data);
+
         });
+      },
 
+
+      loadNav: (callback) => {
+        $("#nav-container").load("nav.html", () => {
+                    SDK.User.loadCurrentUser((err, data) => {
+                        let currentUser = JSON.parse(data);
+                        console.log(2, currentUser);
+                        if (currentUser.type === 2) {
+            $(".navbar-right").html(`
+              <li><a href="course.html">Your Courses</a></li>
+              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a></li>
+            `);
+          } else if (currentUser.type === 1){
+            $(".navbar-right").html(`
+              <li><a href="make-quiz.html">Make Quiz</a></li>
+             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a></li>
+            `);
+          }
+                        else {
+                            $(".navbar-right").html(`
+              <li><a href="signup.html" onclick="SDK.User.signUp()">Opret bruger<span class="sr-only">(current)</span></a></li>
+              <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
+            `);
+                        }
+          $("#logout-link").click(() => SDK.User.logOut());
+            callback && callback();
+                    })
+
+        });
+      }
     },
 
-
-
-  User: {
-      signUp: (username, password, callback) => {
+  Course: {
+      loadCourses: (callback) => {
           SDK.request({
-              data: {
-                  username: username,
-                  password: password
+              method: "GET",
+              url: "/course",
+              headers: {authorization: SDK.Storage.load("token"),
               },
-              url: "/user/signup",
-              method: "POST"
           }, (err, data) => {
               if (err) return callback(err);
+
               callback(null, data);
           });
       },
 
-      loadCurrentUser: (callback) => {
+  },
+
+    quiz: {
+        createQuiz: (questionCount, quizTitle, courseId, callback) => {
+            SDK.request({
+                data: {
+                    questionCount: questionCount,
+                    quizTitle: quizTitle,
+                    courseId: courseId
+                },
+                url: "/quiz",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+
+                callback(null, data);
+            })
+        },
+          loadQuizzes: (callback) => {
+            const courseId = SDK.Storage.load("myCourseId");
           SDK.request({
               method: "GET",
-              url: "/user/myuser",
-              headers: {
-                  authorization: SDK.Storage.load("tokenId"),
+              url: "/quiz/" + courseId,
+              headers: {authorization: SDK.Storage.load("token"),
               },
-          }, (err, user) => {
-              if (err) return callback(err);
-              SDK.Storage.persist("myUser", user);
-              callback(null, user);
+          }, (err, data) => {
+              if(err) return callback(err);
+              callback(null, data);
+              console.log(data);
           });
-
       },
 
-      currentUser: () => {
-          const loadedUser = SDK.Storage.load("myUser");
-          return loadedUser.currentUser;
-      },
+        deleteQuiz: (callback) => {
+            const chosenQuiz = SDK.Storage.load("chosenQuiz")
+            const quizId = chosenQuiz.quizId;
+            SDK.request({
+                method: "DELETE",
+                url: "/quiz/" + quizId,
+                headers: {
+                    authorization: SDK.Storage.load("token")
+                },
+            }, (err, data) => {
+                if (err) return callback(err);
+                callback(null, data)
+            });
 
-      logOut: () => {
-          SDK.Storage.remove("tokenId");
-          SDK.Storage.remove("userId");
-          SDK.Storage.remove("user");
-          window.location.href = "index.html";
-      },
-
-    login: (username, password, callback) => {
-      SDK.request({
-        data: {
-          username: username,
-          password: password
         },
-        url: "/user/login",
-        method: "POST"
-      }, (err, data) => {
 
-        //On login-error
-        if (err) return callback(err);
-
-        //localStorage.setItem("token", data);
-        SDK.Storage.persist("token", data);
-        //SDK.Storage.persist("userId", data.userId);
-        //SDK.Storage.persist("user", data.user);
-
-          callback(null, data);
-
-      });
     },
-    loadNav: (callback) => {
-      $("#nav-container").load("nav.html", () => {
-        const currentUsers = SDK.User.currentUser();
-        if (currentUsers) {
-          $(".navbar-right").html(`
-            <li><a href="course.html">Your Quizzes</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
-          `);
-        } else {
-          $(".navbar-right").html(`
-            <li><a href="login.html">Log-in <span class="sr-only">(currentUser)</span></a></li>
-            <li><a href="signup.html">Sign-up <span class="sr-only">(currentUser)</span></a></li>
-          `);
-        }
-        $("#logout-link").click(() => SDK.User.logOut());
-          callback && callback();
-      });
-    }
-  },
+    question: {
+        createQuestion: (question, questionToQuizId, callback) => {
+            SDK.request({
+                data: {
+                    question: question,
+                    questionToQuizId: questionToQuizId
+                },
+                url: "/question",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+
+                callback(null, data);
+            })
+        },
+
+        loadQuestions: (callback) => {
+            const chosenQuiz = SDK.Storage.load("chosenQuiz");
+            const quizId = chosenQuiz.quizId;
+            SDK.request({
+                method: "GET",
+                url: "/question/" + quizId,
+                headers: {
+                    authorization: SDK.Storage.load("token")
+                },
+            }, (err, question) => {
+                if (err) return callback(err);
+                callback(null, question)
+            });
+        },
+    },
+    option:{
+        createOption: (option, optionToQuestionId, isCorrect, callback) => {
+            SDK.request({
+                data: {
+                    option: option,
+                    optionToQuestionId: optionToQuestionId,
+                    isCorrect: isCorrect
+                },
+                url: "/option",
+                method: "POST",
+                headers: {
+                    authorization: SDK.Storage.load("Token"),
+                }
+            }, (err, data) => {
+                if (err) return callback(err);
+                callback(null, data);
+            })
+        },
+
+        loadOptions: (questionId, cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/option/" + questionId,
+                headers: {
+                    authorization: SDK.Storage.load("Token")
+                },
+            }, (err, options) => {
+                if (err) return cb(err);
+                cb(null, options)
+            });
+        },
+},
+
   Storage: {
     prefix: "DøkExamQuizSDK",
     persist: (key, value) => {

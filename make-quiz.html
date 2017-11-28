@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/main.css">
 
     <meta charset="UTF-8">
-    <title>Make quiz - DØK Quiz 2017</title>
+    <title>Quizzes - DØK eksamens quiz</title>
 
 </head>
 <body>
@@ -15,60 +15,32 @@
 
     <div class="row" id="nav-container"></div>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="page-header">
-                <h1>Make Quiz</h1>
-                <div id="load-test"></div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="inputQuizname">Quizname</label>
-                <input type="Quizname" class="form-control" id="inputQuizname" placeholder="Quizname">
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="inputQustion1">Question 1</label>
-                <input type="Question 1" class="form-control" id="inputQustion1" placeholder="Question 1">
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="inputAnswer1">Answer 1</label>
-                <input type="Answer 1" class="form-control" id="inputAnswer1" placeholder="Answer 1">
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="inputAnswer2">Answer 2</label>
-                <input type="Answer 2" class="form-control" id="inputAnswer2" placeholder="Answer 2">
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="inputAnswer3">Answer 3</label>
-                <input type="Answer 3" class="form-control" id="inputAnswer3" placeholder="Answer 3">
-            </div>
-
-            <div class="form-group">
-                <label class="control-label" for="inputAnswer4">Answer 4</label>
-                <input type="Answer 4" class="form-control" id="inputAnswer4" placeholder="Answer 4">
-            </div>
+    <div class="jumbotron">
+        <h1>Make a quiz</h1>
 
 
-            <button style="margin-bottom: 40px" class="btn btn-default" id="login-button">Submit</button>
-        </div>
+        <div id="questionsContainer"></div>
+
+        <br><button style="margin-bottom: 25px" class="btn btn-default" id="addQuestion-button">add question</button>
+
+        <button style="margin-bottom: 25px" class="btn btn-default" id="makequiz-button">make quiz</button>
+
+        <button style="margin-bottom: 25px" class="btn btn-default" id="cancel-button" href="index.html">cancel</button>
+
+
     </div>
-
-
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">2016 © All rights reserved - Awesome DØK Quiz Inc.</p>
+        <p class="text-muted">2017 © All rights reserved - DØK eksamens quiz.</p>
     </div>
 </footer>
 
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/login.js"></script>
+<script src="js/make-quiz.js"></script>
 
 </body>
 </html>

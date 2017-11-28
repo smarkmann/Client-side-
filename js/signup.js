@@ -1,4 +1,7 @@
 $(document).ready(() => {
+    SDK.User.loadNav();
+
+
     $("#cancelButton").click(() => {
         window.location.href = "login.html"
     });
@@ -13,7 +16,7 @@ $(document).ready(() => {
             document.getElementById("emptyError").innerHTML = "Information missing";
         } else {
             if(newPassword.valueOf() === newPasswordVerifier.valueOf()) {
-                SDK.signup(newUsername, newPassword, (err, data) => {
+                SDK.User.signUp(newUsername, newPassword, (err, data) => {
                     if (err && err.xhr.status == 400) {
                         $(".form-group").addClass("Client fail");
                     }

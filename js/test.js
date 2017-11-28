@@ -1,43 +1,28 @@
 $(document).ready(() => {
 
-    $("#signup-button").on("click", () => {
-        window.location.href = "signUp.html";
-    });
+    SDK.User.loadNav();
 
 
-    $("#login-button").on("click", () => {
 
-        let username = $("#username").val();
-        let password = $("#password").val();
+    SDK.quiz.loadQuizzes((err, data) => {
+        if (err) throw err;
+        const quizzes = JSON.parse(data);
+        console.log(quizzes);
 
-        if (!username || !password) {
-            window.alert("Username or password has not been typed. Please try again");
-        } else {
-            SDK.logIn(username, password, (err, data) => {
-                if (err && err.xhr.status === 401) {
-                    window.alert("Wrong username or password");
-                }
-                else if (err) {
-                    console.log("Error");
-                    window.alert("Wrong username or password");
-                } else if (SDK.Storage.load("myToken") === null) {
-                    window.alert("This user does not exist");
-                }
-                else {
-                    SDK.loadCurrentUser((err, data) => {
-                        if (err && err.xhr.status == 401) {
-                            window.alert("Wrong username or password");
-                        } else {
-                            console.log(data)
-                            if (SDK.currentUser().type == 1) {
-                                window.location.href = "admin.html";
-                            } else if (SDK.currentUser().type == 2) {
-                                window.location.href = "user.html";
-                            }
-                        }
-                    });
-                }
-            });
-        }
+        $("#tablehead").append("<thead>\n" +
+            "<th>Quiz Titel</th>\n" +
+            "<th><button class=\"btn btn-primary btn-lg\">Create quiz</button></th>\n" +
+            "</thead>")
+
+        $.each(quizzes, function (i, val) {
+            var tr = '<tr>';
+            tr += '<td width="80%">' + quizzes[i].quizTitle + '</td>';
+            tr += '<td width="20%"><button class="btn btn-primary btn-lg" data-key="' + (i+1) + '">Delete quiz</button></td>';
+            tr += '</tr>';
+            i + 1;
+            $("#quizList").append(tr);
+        });
+
+
     });
 });

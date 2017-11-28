@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="css/main.css">
 
     <meta charset="UTF-8">
-    <title>DØK Quiz 2017</title>
+    <title>Quiz - DIS Quiz 2017</title>
 
 </head>
 <body>
+
 
 <div class="container">
 
@@ -18,31 +19,34 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="jumbotron">
-                <h1 class="display-3">Velkommen til Makro Quiz!</h1>
-                <p class="lead">På denne side kan du vælge quizzes inden for makro. Quizzerne er uarbejdet af lærene og med udgangspunkt i pensum og tiltænkt som eksmaneshjælp.</p>
+                <h1 class="display-3">Velkommen til DØK Quiz!</h1>
+                <p class="lead">På denne side kan du vælge hvilken Quiz du vil tage. Quizzerne er uarbejdet af lærene og med udgangspunkt i pensum og tiltænkt som eksmaneshjælp.</p>
                 <hr class="my-4">
-                <p>.</p>
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Start quiz</a>
-                </p>
+
+
+                <table class="table" id="tableQuiz">
+                </table>
             </div>
 
         </div>
     </div>
 </div>
 
+
+
+
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">2016 © All rights reserved - Awesome DØK Quiz Inc.</p>
+        <p class="text-muted">2016 © All rights reserved - Awesome Quiz Inc.</p>
     </div>
 </footer>
 
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
+<script src="js/courseQuiz.js"></script>
 <script>
     SDK.User.loadNav();
 </script>
-
 </body>
 </html>
