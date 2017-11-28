@@ -4,6 +4,8 @@ $(document).ready(() => {
 
 
 
+
+
     SDK.quiz.loadQuizzes((err, data) => {
         if (err) throw err;
         const quizzes = JSON.parse(data);

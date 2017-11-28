@@ -1,6 +1,7 @@
 $(document).ready(() => {
 
     SDK.User.loadNav();
+    const currentUser = SDK.User.currentUser();
 
     SDK.Course.loadCourses((err, myCourses) => {
         console.log(err, courses);
@@ -18,7 +19,20 @@ $(document).ready(() => {
             console.log(myId);
           //  courses.forEach((course) => {
             SDK.Storage.persist("myCourseId",myId)
-            window.location.href="test.html";
+            {
+                SDK.User.loadCurrentUser((err, data) => {
+                    if (err && err.xhr.status === 401) {
+                        window.alert("Wrong username or password");
+                    } else {
+                        let currentUser = JSON.parse(data);
+                        if (currentUser.type === 2) {
+                            window.location.href = "testUser.html";
+                        } else if (currentUser.type === 1) {
+                            window.location.href = "test.html";
+                        }
+                    }
+                });
+            }
               // if(myId === course.courseId) {
                   // SDK.quiz.loadQuizzes(courseId, (data, err) => {
                    });

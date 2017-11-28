@@ -29,7 +29,7 @@ $(document).ready(() => {
                         } else {
                             let currentUser = JSON.parse(data);
                             if (currentUser.type === 1) {
-                                window.location.href = "index.html";
+                                window.location.href = "courses.html";
                             } else if (currentUser.type === 2) {
                                 window.location.href = "courses.html";
                             }
