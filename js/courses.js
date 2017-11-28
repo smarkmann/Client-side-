@@ -26,17 +26,17 @@ $(document).ready(() => {
         console.log(err, courses);
         var courses = JSON.parse(myCourses);
         courses.forEach((course) =>  {
-           $("#courseContainer").append('<button class="btn btn-primary btn-lg" id='+course.courseId+'>'+course.courseTitle+'</button>');
+           $("#courseContainer").append('<button class="courseBtn btn-primary btn-lg" id='+course.courseId+'>'+course.courseTitle+'</button>');
            console.log(course.courseId);
         });
         console.log(courses);
 
-        $(".btn").click(function () {
-            console.log(this.id)
+        $(".courseBtn").click(function () {
+            console.log(this.id);
             const courseId = this.id;
             const myId = parseInt(courseId);
             console.log(myId);
-            SDK.Storage.persist("myCourseId",myId)
+            SDK.Storage.persist("myCourseId",myId);
             {
                 SDK.User.loadCurrentUser((err, data) => {
                     let currentUser = JSON.parse(data);

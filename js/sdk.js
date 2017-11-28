@@ -139,15 +139,14 @@ const SDK = {
   },
 
     quiz: {
-        createQuiz: (questionCount, quizTitle, courseId, callback) => {
+        createQuiz: (quizTitle, courseId, callback) => {
             SDK.request({
                 data: {
-                    questionCount: questionCount,
                     quizTitle: quizTitle,
                     courseId: courseId
                 },
-                url: "/quiz",
                 method: "POST",
+                url: "/quiz",
                 headers: {
                     authorization: SDK.Storage.load("token"),
                 }
@@ -159,6 +158,8 @@ const SDK = {
         },
           loadQuizzes: (callback) => {
             const courseId = SDK.Storage.load("myCourseId");
+
+
           SDK.request({
               method: "GET",
               url: "/quiz/" + courseId,

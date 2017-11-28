@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <meta charset="UTF-8">
+    <title>Quizzes - DØK eksamens quiz</title>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row" id="nav-container"></div>
+
+    <div class="jumbotron">
+        <h1>Make a quiz</h1>
+
+
+        <div class="container">
+            <div class="jumbotron">
+                <div class="form-group">
+                    <label class="control-label" for="quizTitle">Title</label>
+                    <input type="text" class="form-control" id="quizTitle" placeHolder="Quiz title">
+                </div>
+
+                <div id="questionsContainer"></div>
+
+                <button style="margin-bottom: 25px" class="btn btn-default" id="setTitle-button" href="newQuestion.html">Next</button>
+                <button style="margin-bottom: 25px" class="btn btn-default" id="cancel-button" href="index.html">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">2017 © All rights reserved - DØK eksamens quiz.</p>
+        </div>
+    </footer>
+
+    <script src="lib/js/jquery-3.2.1.js"></script>
+    <script src="lib/js/bootstrap.js"></script>
+    <script src="js/sdk.js"></script>
+    <script src="js/newQuiz.js"></script>
+
+</body>
+</html>
