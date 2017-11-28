@@ -1,7 +1,26 @@
 $(document).ready(() => {
+    $(".user-display").hide();
+    $(".admin-display").hide();
+
 
     SDK.User.loadNav();
     const currentUser = SDK.User.currentUser();
+
+
+
+
+
+    SDK.User.loadCurrentUser((err, data) => {
+        let currentUser = JSON.parse(data);
+        if (currentUser.type === 2) {
+            $(".admin-display").show();
+        } else if (currentUser.type === 1) {
+            $(".user-display").show();
+        }
+
+    });
+
+
 
     SDK.Course.loadCourses((err, myCourses) => {
         console.log(err, courses);
@@ -17,27 +36,21 @@ $(document).ready(() => {
             const courseId = this.id;
             const myId = parseInt(courseId);
             console.log(myId);
-          //  courses.forEach((course) => {
             SDK.Storage.persist("myCourseId",myId)
             {
                 SDK.User.loadCurrentUser((err, data) => {
-                    if (err && err.xhr.status === 401) {
-                        window.alert("Wrong username or password");
-                    } else {
-                        let currentUser = JSON.parse(data);
+                    let currentUser = JSON.parse(data);
                         if (currentUser.type === 2) {
                             window.location.href = "testUser.html";
                         } else if (currentUser.type === 1) {
                             window.location.href = "test.html";
                         }
-                    }
+
                 });
             }
-              // if(myId === course.courseId) {
-                  // SDK.quiz.loadQuizzes(courseId, (data, err) => {
+
                    });
-            //   }
-          //  });
+
         });
 
     });
