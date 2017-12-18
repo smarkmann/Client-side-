@@ -8,13 +8,11 @@ $(document).ready(() => {
 
 
 
-
-
     SDK.User.loadCurrentUser((err, data) => {
         let currentUser = JSON.parse(data);
-        if (currentUser.type === 2) {
+        if (currentUser.type === 1) {
             $(".admin-display").show();
-        } else if (currentUser.type === 1) {
+        } else if (currentUser.type === 2) {
             $(".user-display").show();
         }
 

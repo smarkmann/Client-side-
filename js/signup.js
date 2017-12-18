@@ -1,5 +1,8 @@
 $(document).ready(() => {
-    SDK.User.loadNav();
+
+    console.log("WORKS");
+  //  SDK.User.loadNav();
+    console.log("WORKS2");
 
 
     $("#cancelButton").click(() => {

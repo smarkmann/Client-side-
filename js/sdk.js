@@ -92,35 +92,42 @@ const SDK = {
       },
 
 
-      loadNav: (callback) => {
-        $("#nav-container").load("nav.html", () => {
-                    SDK.User.loadCurrentUser((err, data) => {
-                        let currentUser = JSON.parse(data);
-                        console.log(2, currentUser);
-                        if (currentUser.type === 2) {
-            $(".navbar-right").html(`
-              <li><a href="course.html">Your Courses</a></li>
-              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a></li>
-            `);
-          } else if (currentUser.type === 1){
-            $(".navbar-right").html(`
-              <li><a href="make-quiz.html">Make Quiz</a></li>
-             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a></li>
-            `);
-          }
-                        else {
-                            $(".navbar-right").html(`
-              <li><a href="signup.html" onclick="SDK.User.signUp()">Opret bruger<span class="sr-only">(current)</span></a></li>
-              <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
-            `);
-                        }
-          $("#logout-link").click(() => SDK.User.logOut());
-            callback && callback();
-                    })
+        loadNav: (callback) => {
+            $("#nav-container").load("nav.html", () => {
+                SDK.User.loadCurrentUser((err, data) => {
+                    let currentUser = JSON.parse(data);
+                    //console.log(2, currentUser);
+                    if (currentUser.type === 2) {
+                        $(".navbar-right").html(`
+             <li><a href="score.html">Score</a></li>
+             <li><a href="courses.html">Fag</a></li>
+             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
+             
+          `);
+                    }
+                    else if (currentUser.type === 1){
+                        $(".navbar-right").html(`
+             <li><a  href="courses.html">Opret quiz</a></li>
+             <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
+           
+             `);
+                    }
+                    else {
+                        $(".navbar-right").html(`
+            <li><a href="signup.html" onclick="SDK.User.signUp()">Opret bruger<span class="sr-only">(current)</span></a></li>
+            <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
+          `);
+                    }
+                    $("#logout-link").click(() => SDK.User.logOut());
+                    callback && callback();
+                })
 
-        });
-      }
+            });
+        }
     },
+
+
+
 
   Course: {
       loadCourses: (callback) => {
@@ -158,9 +165,7 @@ const SDK = {
         },
           loadQuizzes: (callback) => {
             const courseId = SDK.Storage.load("myCourseId");
-
-
-          SDK.request({
+            SDK.request({
               method: "GET",
               url: "/quiz/" + courseId,
               headers: {authorization: SDK.Storage.load("token"),
@@ -190,11 +195,11 @@ const SDK = {
 
     },
     question: {
-        createQuestion: (question, questionToQuizId, callback) => {
+        createQuestion: (question, quizId, callback) => {
             SDK.request({
                 data: {
                     question: question,
-                    questionToQuizId: questionToQuizId
+                    questionToQuizId: quizId
                 },
                 url: "/question",
                 method: "POST",
@@ -234,7 +239,7 @@ const SDK = {
                 url: "/option",
                 method: "POST",
                 headers: {
-                    authorization: SDK.Storage.load("Token"),
+                    authorization: SDK.Storage.load("token"),
                 }
             }, (err, data) => {
                 if (err) return callback(err);
@@ -242,16 +247,16 @@ const SDK = {
             })
         },
 
-        loadOptions: (questionId, cb) => {
+        loadOptions: (questionId, callback) => {
             SDK.request({
                 method: "GET",
                 url: "/option/" + questionId,
                 headers: {
-                    authorization: SDK.Storage.load("Token")
+                    authorization: SDK.Storage.load("token")
                 },
             }, (err, options) => {
-                if (err) return cb(err);
-                cb(null, options)
+                if (err) return callback(err);
+                callback (null, options)
             });
         },
 },
