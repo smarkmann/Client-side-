@@ -169,35 +169,37 @@ const SDK = {
                 callback(null, data);
             });
         },
-          loadQuizzes: (callback) => {
+        loadQuizzes: (callback) => {
             const courseId = SDK.Storage.load("myCourseId");
             SDK.request({
-              method: "GET",
-              url: "/quiz/" + courseId,
-              headers: {
-                  authorization: SDK.Storage.load("token"),
-              },
-          }, (err, data) => {
-              if(err) return callback(err);
-              callback(null, data);
-              console.log(data);
-          });
-      },
-
-        deleteQuiz: (callback) => {
-            const chosenQuiz = SDK.Storage.load("chosenQuiz")
-            const quizId = chosenQuiz.quizId;
-            SDK.request({
-                method: "DELETE",
-                url: "/quiz/" + quizId,
+                method: "GET",
+                url: "/quiz/" + courseId,
                 headers: {
-                    authorization: SDK.Storage.load("token")
+                    authorization: SDK.Storage.load("token"),
                 },
             }, (err, data) => {
                 if (err) return callback(err);
-                callback(null, data)
+                callback(null, data);
+                console.log(data);
             });
+        },
 
+        deleteQuiz: (callback) => {
+            const MyQuizId = SDK.Storage.load("MyQuizId");
+            const quizId = MyQuizId.quizId;
+
+            SDK.request({
+                    method: "DELETE",
+                    url: "/quiz/" + quizId,
+
+                    headers: {
+                        authorization: SDK.Storage.load("token")
+                    },
+                },
+                (err, data) => {
+                    if (err) return callback(err);
+                    callback(null, data);
+                });
         },
 
         startQuiz: (callback) => {
@@ -280,22 +282,22 @@ const SDK = {
         },
 },
 
-  Storage: {
-    prefix: "DøkExamQuizSDK",
-    persist: (key, value) => {
-      window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
-    },
-    load: (key) => {
-      const val = window.localStorage.getItem(SDK.Storage.prefix + key);
-      try {
-        return JSON.parse(val);
-      }
-      catch (e) {
+    Storage: {
+        prefix: "DØKQuizSDK",
+        persist: (key, value) => {
+            window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
+        },
+        load: (key) => {
+            const val = window.localStorage.getItem(SDK.Storage.prefix + key);
+            try {
+            return JSON.parse(val);
+        }
+        catch (e) {
         return val;
-      }
-    },
-    remove: (key) => {
-      window.localStorage.removeItem(SDK.Storage.prefix + key);
     }
-  }
+},
+remove: (key) => {
+    window.localStorage.removeItem(SDK.Storage.prefix + key);
+}
+}
 };
