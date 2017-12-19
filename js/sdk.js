@@ -58,7 +58,8 @@ const SDK = {
 
         currentUser: () => {
             const loadedUser = SDK.Storage.load("myUser");
-            return loadedUser.currentUser;
+            console.log(loadedUser);
+            return loadedUser;
         },
 
         logOut: () => {
@@ -149,7 +150,10 @@ const SDK = {
         createQuiz: (quizTitle, courseId, callback) => {
             SDK.request({
                 data: {
+                   // createdBy: createdBy,
+                    // questionCount: questionCount,
                     quizTitle: quizTitle,
+                    // quizDescription: quizDescription,
                     courseId: courseId
                 },
                 method: "POST",

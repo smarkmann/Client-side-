@@ -1,12 +1,18 @@
 $(document).ready(() => {
 
     SDK.User.loadNav();
-    const quizId = SDK.Storage.persist("myQuizId");
 
+
+    $("#cancel-button").click(() => {
+        console.log("clicked");
+        window.location.href = "testAdmin.html";
+    });
 
     $("#addQuestion-button").click(() => {
-       // $(".add-quiz").show();
         console.log("clicked");
+        const question = $("#question").val();
+        const quizId = SDK.Storage.persist("myQuizId");
+
         $("#questionsContainer").append(
             "<br>Question</label><br>" +
             "<input type='text'class='form-control' name='question' placeholder='question title'>"+
@@ -15,13 +21,24 @@ $(document).ready(() => {
             "<input type='text' class='form-control' name='question2'>" +
             "<input type='text' class='form-control' name='question3'>" +
             "<input type='text' class='form-control' name='question4'><br>"
-        )
+
+
+
+    SDK.question.createQuestion(question, quizId, (err, data)=> {
+        console.log("Virker det ?");
+
+        const questionId = this.id;
+        const myId = parseInt(questionId);
+        console.log(myId);
+        SDK.Storage.persist("myQuestion",myId);
+
+        var createQuestion = JSON.parse(data);
+
+        window.location.href="newQuestion.html"
+
+
     });
+    })
 
-
-        SDK.quiz.createQuiz(quizTitle, courseId, (err, data) => {
-
-        });
-        //$("#")
     });
 
