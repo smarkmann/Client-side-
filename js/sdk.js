@@ -102,13 +102,15 @@ const SDK = {
                         $(".navbar-right").html(`
              <li><a href="score.html">Score</a></li>
              <li><a href="courses.html">Fag</a></li>
+             <li><a href="profile.html">Profil</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
              
           `);
                     }
                     else if (currentUser.type === 1){
                         $(".navbar-right").html(`
-             <li><a  href="courses.html">Opret quiz</a></li>
+             <li><a  href="courses.html">Fag</a></li>
+             <li><a href="profile.html">Profil</a></li>
              <li><a href="#" id="logout-link" onclick="SDK.User.logOut()">Logout</a> </li>
            
              `);

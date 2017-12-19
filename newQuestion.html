@@ -15,17 +15,30 @@
     <div class="jumbotron">
         <h1>Make a quiz</h1>
 
-        <div id="questionsContainer"></div>
-        <br><button style="margin-bottom: 25px" class="btn btn-default" id="addQuestion-button">add question</button>
+        <label class="control-label" for="question">Question</label>
+        <input type="text" class="form-control" id="question" placeholder="Question">
 
-        <button style="margin-bottom: 25px" class="btn btn-default" id="makequiz-button">make quiz</button>
+        <label class="control-label" for="option1">Option 1</label>
+        <input type="text" class="form-control" id="option1" placeholder="Rigtigt svar">
 
-        <button style="margin-bottom: 25px" class="btn btn-default" id="cancel-button" href="index.html">cancel</button>
+        <label class="control-label" for="option2">Option 2</label>
+        <input type="text" class="form-control" id="option2" placeholder="svar">
+
+        <label class="control-label" for="option3">Option 3</label>
+        <input type="text" class="form-control" id="option3" placeholder="svar">
+
+        <label class="control-label" for="option4">Option 4</label>
+        <input type="text" class="form-control" id="option4" placeholder="svar">
+
+        <br><button style="margin-bottom: 25px" class="btn btn-default" id="createQuestion-button">Add question</button>
+
+        <button style="margin-bottom: 25px" class="btn btn-default" id="make-button">Make quiz</button>
+
+        <button style="margin-bottom: 25px" class="btn btn-default" id="cancel-button" href="index.html">Cancel</button>
 
 
     </div>
 </div>
-
 <footer class="footer">
     <div class="container">
         <p class="text-muted">2017 © All rights reserved - DØK eksamens quiz.</p>
@@ -35,7 +48,7 @@
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/make-quiz.js"></script>
+<script src="js/make-quiz(slettes).js"></script>
 
 </body>
 </html>
