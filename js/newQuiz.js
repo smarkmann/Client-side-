@@ -4,36 +4,31 @@ $(document).ready(() => {
 
     $("#cancel-button").click(() => {
         console.log("clicked");
-        window.location.href = "testAdmin.html";
+        window.location.href = "courseQuizAdmin.html";
     });
 
     $("#setTitle-button").click(() => {
-       console.log("title button ");
+        console.log("title button ");
         const quizTitle = $("#quizTitle").val();
         const courseId = SDK.Storage.load("myCourseId");
-       // const createdBy = "Hej";
+        // const createdBy = "Hej";
         // const questionCount = 10;
-       // const quizDescription = "beskrivelse"
+        // const quizDescription = "beskrivelse"
 
-        SDK.quiz.createQuiz(quizTitle, courseId, (err, data)=>{
-            console.log("hej");
+        SDK.quiz.createQuiz(quizTitle,courseId, (err, data)=> {
+            var newQuiz = JSON.parse(data);
 
+            const quizId = newQuiz.quizId;
 
-
-            const quizId = this.id;
-            const myId = parseInt(quizId);
-            console.log(myId);
-            SDK.Storage.persist("myQuizId",myId);
-
-            var createQuiz = JSON.parse(data);
+            SDK.Storage.persist("myQuizId", quizId);
 
             window.location.href="newQuestion.html"
 
             });
 
-        })
+    })
 
-        });
+});
 
 
 

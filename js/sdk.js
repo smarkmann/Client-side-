@@ -162,19 +162,20 @@ const SDK = {
                 url: "/quiz",
                 headers: {
                     authorization: SDK.Storage.load("token"),
-                }
+                },
             }, (err, data) => {
                 if (err) return callback(err);
 
                 callback(null, data);
-            })
+            });
         },
           loadQuizzes: (callback) => {
             const courseId = SDK.Storage.load("myCourseId");
             SDK.request({
               method: "GET",
               url: "/quiz/" + courseId,
-              headers: {authorization: SDK.Storage.load("token"),
+              headers: {
+                  authorization: SDK.Storage.load("token"),
               },
           }, (err, data) => {
               if(err) return callback(err);
@@ -199,8 +200,22 @@ const SDK = {
 
         },
 
-    },
-    question: {
+        startQuiz: (callback) => {
+            const chosenQuiz = SDK.Storage.load("chosenQuiz");
+            const quizId = chosenQuiz.quizId;
+
+            SDK.request({
+                url: "/question/" + quizId,
+                method: "GET",
+                headers: {
+                    authorization: SDK.Storage.load("token"),
+                },
+            }, (err, quiz) => {
+                if (err) return callback(err);
+                callback(null, quiz)
+            });
+        },
+
         createQuestion: (question, quizId, callback) => {
             SDK.request({
                 data: {
@@ -214,7 +229,6 @@ const SDK = {
                 }
             }, (err, data) => {
                 if (err) return callback(err);
-
                 callback(null, data);
             })
         },
@@ -233,14 +247,13 @@ const SDK = {
                 callback(null, question)
             });
         },
-    },
-    option:{
+
         createOption: (option, optionToQuestionId, isCorrect, callback) => {
             SDK.request({
                 data: {
                     option: option,
                     optionToQuestionId: optionToQuestionId,
-                    isCorrect: isCorrect
+                    isCorrect: isCorrect,
                 },
                 url: "/option",
                 method: "POST",

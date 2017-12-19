@@ -20,7 +20,7 @@ $(document).ready(() => {
             SDK.quiz.createQuestion(question, quizId, (err, data) => {
                 var newQuestion = JSON.parse(data);
                 console.log(newQuestion.questionId);
-                console.log("clicked");
+                console.log("clicked2");
                 const optionToQuestionId = newQuestion.questionId;
                 const correctOption = $("#option1").val();
                 const wrongOption1 = $("#option2").val();

@@ -39,9 +39,9 @@ $(document).ready(() => {
                 SDK.User.loadCurrentUser((err, data) => {
                     let currentUser = JSON.parse(data);
                         if (currentUser.type === 2) {
-                            window.location.href = "../courseQuizUser.html";
+                            window.location.href = "courseQuizUser.html";
                         } else if (currentUser.type === 1) {
-                            window.location.href = "../courseQuizAdmin.html";
+                            window.location.href = "courseQuizAdmin.html";
                         }
 
                 });
