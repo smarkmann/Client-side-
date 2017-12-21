@@ -1,6 +1,10 @@
 $(document).ready(() => {
 
-    SDK.User.loadNav();
+
+
+    $("#cancelButton").click(() => {
+        window.location.href = "index.html"
+    });
 
     $("#login-button").click(() => {
         console.log("login clicked");
@@ -28,11 +32,9 @@ $(document).ready(() => {
                             window.alert("Wrong username or password");
                         } else {
                             let currentUser = JSON.parse(data);
-                            if (currentUser.type === 1) {
-                                window.location.href = "profile.html";
-                            } else if (currentUser.type === 2) {
-                                window.location.href = "courses.html";
-                            }
+
+                            window.location.href = "profile.html";
+
                         }
                     });
                 }

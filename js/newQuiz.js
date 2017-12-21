@@ -11,9 +11,6 @@ $(document).ready(() => {
         console.log("title button ");
         const quizTitle = $("#quizTitle").val();
         const courseId = SDK.Storage.load("myCourseId");
-        // const createdBy = "Hej";
-        // const questionCount = 10;
-        // const quizDescription = "beskrivelse"
 
         SDK.quiz.createQuiz(quizTitle,courseId, (err, data)=> {
             var newQuiz = JSON.parse(data);

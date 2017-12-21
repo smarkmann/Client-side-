@@ -82,10 +82,8 @@ const SDK = {
           //On login-error
           if (err) return callback(err);
 
-          //localStorage.setItem("token", data);
+
           SDK.Storage.persist("token", data);
-          //SDK.Storage.persist("userId", data.userId);
-          //SDK.Storage.persist("user", data.user);
 
             callback(null, data);
 
@@ -152,10 +150,8 @@ const SDK = {
         createQuiz: (quizTitle, courseId, callback) => {
             SDK.request({
                 data: {
-                   // createdBy: createdBy,
-                    // questionCount: questionCount,
+
                     quizTitle: quizTitle,
-                    // quizDescription: quizDescription,
                     courseId: courseId
                 },
                 method: "POST",
